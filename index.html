@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>post API</title>
+</head>
+<body>
+
+    <form class="form">
+        <input name="username" type="text" placeholder="username">
+        <input name="password" type="password" placeholder="password">
+        <input name="termsconditions" type="checkbox">
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        const formEl = document.querySelector('.form');
+
+        formEl.addEventListener('submit', event => {
+             event.preventDefault();
+
+             const formData = new FormData(formEl);
+             const data = Object.fromEntries(formData);
+             console.log(data);
+
+             fetch('https://reqres.in/api/users', {
+                method: 'POST',
+                headders: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+             }).then(response=> response.json())
+             .then(data => console.log(data))
+        });
+
+    </script>
+    
+</body>
+</html>
